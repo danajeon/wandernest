@@ -5,7 +5,13 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}', // Include React components
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'wandernest-blue': '#B0E7FF',
+        'wandernest-pink': '#E589D9',
+        'wandernest-purple': '#BFCCFB',
+      },
+    },
   },
   plugins: [],
 }
