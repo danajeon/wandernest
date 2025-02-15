@@ -1,11 +1,11 @@
 import './index.css' // Tailwind CSS import
 import './App.css'
-import { CreateAccount } from './components/CreateAccount'
+import { LandingPage } from './components/LandingPage'
 
 function App() {
   return (
     <div className="font-[dongle]">
-      <CreateAccount />
+      <LandingPage />
     </div>
   )
 }
