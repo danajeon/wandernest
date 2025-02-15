@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'dongle': ['Dongle', 'serif']
+      },
       colors: {
         'wandernest-blue': '#B0E7FF',
         'wandernest-pink': '#E589D9',
