@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Button = ({ variant = 'default', text, children, ...props }) => {
+export const Button = ({ variant = 'default', text }) => {
     // default button
     const baseStyle = 'px-20 py-2 rounded-2xl text-xl bg-gradient-to-r from-wandernest-blue to-wandernest-pink text-white';
     // button variants
@@ -9,6 +9,6 @@ export const Button = ({ variant = 'default', text, children, ...props }) => {
     };
 
     return (
-        <button className={`${baseStyle} ${variants[variant]}`} {...props}>{text}</button>
+        <button className={`${baseStyle} ${variants[variant]}`}>{text}</button>
     )
 }
