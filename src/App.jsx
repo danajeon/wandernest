@@ -4,7 +4,7 @@ import { LandingPage } from './components/LandingPage'
 
 function App() {
   return (
-    <div className="font-[dongle]">
+    <div className="font-[itim]">
       <LandingPage />
     </div>
   )
