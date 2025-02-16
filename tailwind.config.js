@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'dongle': ['Dongle', 'serif']
+        'itim': ['Itim', 'serif']
       },
       colors: {
         'wandernest-blue': '#B0E7FF',
