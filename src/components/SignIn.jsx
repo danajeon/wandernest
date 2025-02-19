@@ -5,9 +5,9 @@ export const SignIn = ({ handleCreateAccount }) => {
 
 
   return (
-    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 border border-solid border-black bg-white rounded-3xl flex flex-col items-center px-[20%] py-[2%]">
-      <div>
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-wandernest-blue to-wandernest-pink text-5xl">Sign In</span>
+    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 space-y-8  bg-white rounded-3xl flex flex-col items-center w-[50%] py-[2%]">
+      <div className="flex justify-center text-center">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-wandernest-blue to-wandernest-pink text-5xl py-1">Sign In</span>
       </div>
       <div className="flex flex-col items-center text-xl text-gray-400">
         <div className="flex flex-col">
