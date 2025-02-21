@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./Button"
 
 export const SignIn = ({ handleCreateAccount }) => {
 
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/dashboard");
+  }
 
   return (
     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 space-y-8  bg-white rounded-3xl flex flex-col items-center w-[50%] py-[2%]">
@@ -20,7 +25,10 @@ export const SignIn = ({ handleCreateAccount }) => {
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <Button text={"Sign In"} />
+        <Button
+          text={"Sign In"}
+          onClick={handleLogin}
+        />
         <span className="text-wandernest-purple text-xl pt-[5%] hover:underline hover:cursor-pointer" onClick={(handleCreateAccount)}>Create Account</span>
       </div>
     </div>
