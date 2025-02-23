@@ -1,4 +1,5 @@
 import React from "react";
+import { CreateTrip } from "./CreateTrip";
 import logo1 from "../images/logo1.png";
 
 export const Dashboard = () => {
@@ -12,6 +13,7 @@ export const Dashboard = () => {
         />
       </div>
       <div className="bg-gradient-to-r from-wandernest-blue to-wandernest-pink w-1/4">
+        <CreateTrip />
       </div>
     </div>
   );
