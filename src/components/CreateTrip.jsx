@@ -18,6 +18,7 @@ export const CreateTrip = () => {
 
   return (
     <div className='h-full'>
+
         <div className='flex flex-row justify-between items-center px-4 h-[8%]'>
             <ArrowBackIcon fontSize='large' sx={{
             'cursor': 'pointer',
@@ -41,7 +42,9 @@ export const CreateTrip = () => {
 
             </div>
             <Button text={"Create Trip"} />
+
         </div>
-    </div>
+        <Button text={"Create Trip"} />
+      </div>
   )
 }
