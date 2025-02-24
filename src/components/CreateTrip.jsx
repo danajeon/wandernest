@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "./Button";
 
-export const CreateTrip = () => {
+export const CreateTrip = ({handleBacktoDashboard}) => {
   const [tripName, setTripName] = useState("");
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -24,6 +24,7 @@ export const CreateTrip = () => {
           sx={{
             cursor: "pointer",
           }}
+          onClick={handleBacktoDashboard}
         />
         <h2 className="text-2xl">New Trip</h2>
         <MenuIcon
@@ -33,7 +34,7 @@ export const CreateTrip = () => {
           }}
         />
       </div>
-      <div className="flex flex-col justify-between items-center h-[80%] rounded-md m-6 p-4 bg-[rgba(255,255,255,.8)] ">
+      <div className="flex flex-col justify-between items-center h-[80%] rounded-md m-6 p-4 bg-[rgba(255,255,255,.7)] ">
         <div className="flex flex-col w-full">
           <label htmlFor="tripName">Trip Name</label>
           <input
