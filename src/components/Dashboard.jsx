@@ -1,5 +1,6 @@
 import React from "react";
 import { CreateTrip } from "./CreateTrip";
+import { NavBar } from "./NavBar";
 import logo1 from "../images/logo1.png";
 
 export const Dashboard = () => {
