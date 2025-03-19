@@ -1,4 +1,4 @@
-import React, { useS, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CreateTrip } from "./CreateTrip";
 import { NavBar } from "./NavBar";
 import { Button } from "./Button";
@@ -9,6 +9,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 export const Dashboard = () => {
   const [displayDefault, setDisplayDefault] = useState(true);
   const [displayNavBar, setDisplayNavBar] = useState(false);
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    // Initialize localStorage if "trips" doesn't exist
+    const storedTrips = JSON.parse(localStorage.getItem("trips")) || [];
+    setTrips(storedTrips);
+  }, []);
+
+  // Function to refresh trips from localStorage (after a new trip is added)
+  const refreshTrips = () => {
+    const storedTrips = JSON.parse(localStorage.getItem("trips")) || [];
+    setTrips(storedTrips);
+  };
 
   return (
     <div className="flex flex-row flex-nowrap h-full">
@@ -21,7 +34,15 @@ export const Dashboard = () => {
       </div>
       <div className="bg-gradient-to-r from-wandernest-blue to-wandernest-pink w-1/3">
         {displayNavBar && <NavBar handleNavBar={() => setDisplayNavBar(false)} />}
-        {!displayDefault && <CreateTrip handleBackToDashboard={() => setDisplayDefault(true)} handleNavBar={() => setDisplayNavBar(true)} />}
+        {!displayDefault && (
+          <CreateTrip 
+            handleBackToDashboard={() => {
+              setDisplayDefault(true);
+              refreshTrips(); // Refresh the trip list when a new trip is added
+            }} 
+            handleNavBar={() => setDisplayNavBar(true)}
+          />
+        )}
         {displayDefault && (
           <div className="w-full h-full">
             <div className="grid grid-cols-3 grid-rows-1 w-full items-center px-4 h-[8%]">
@@ -30,32 +51,20 @@ export const Dashboard = () => {
               </h2>
               <MenuIcon
                 fontSize="large"
-                sx={{
-                  cursor: "pointer",
-                }}
+                sx={{ cursor: "pointer" }}
                 className="grid col-start-3 col-end-4 justify-self-end"
                 onClick={() => setDisplayNavBar(true)}
               />
             </div>
             <div className="flex flex-col justify-between items-center h-[80%] rounded-md m-6 p-4 bg-[rgba(255,255,255,.7)]">
               <div className="flex flex-col w-full gap-2 mb-4 overflow-scroll">
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
-                <Trip />
+                {trips.length > 0 ? (
+                  trips.map((trip) => (
+                    <Trip key={trip.id} name={trip.name} startDate={trip.startDate} endDate={trip.endDate} />
+                  ))
+                ) : (
+                  <p>No trips available. Create one!</p>
+                )}
               </div>
               <Button
                 text={"New Trip"}
