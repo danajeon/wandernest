@@ -1,20 +1,67 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "./Button";
+import { eachDayOfInterval, formatISO, parseISO } from "date-fns";
 
 export const CreateTrip = ({ handleBackToDashboard, handleNavBar }) => {
   const [tripName, setTripName] = useState("");
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
+  // Logs trip details whenever states change
   useEffect(() => {
     console.log("v Trip Detail v");
-    console.log(tripName);
-    console.log(startDate);
-    console.log(endDate);
+    console.log(tripName, startDate, endDate);
   }, [tripName, startDate, endDate]);
+
+  const handleCreateTrip = () => {
+    if (!tripName || !startDate || !endDate) {
+      alert("Please fill in all fields.");
+      return; // Exits function early if conditions met
+    }
+
+    // Retrieve existing "trips" from local storage (if any), or initialize empty array
+    const existingTrips = JSON.parse(localStorage.getItem("trips")) || [];
+
+    // Unique trip ID (e.g., tr001, tr002, tr003, ...)
+    const tripId = `tr${String(existingTrips.length + 1).padStart(3, "0")}`;
+
+    // Convert start and end date strings into Date objects
+    const parsedStartDate = parseISO(startDate);
+    const parsedEndDate = parseISO(endDate);
+
+    // Retrieve all dates between start and end dates
+    const daysRaw = eachDayOfInterval({ // Returns an array
+      start: parsedStartDate,
+      end: parsedEndDate
+    });
+
+    // Convert raw dates to ISO format
+    const daysISO = daysRaw.map((x) => formatISO(x, { representation: 'date' })); // Returns an array
+
+    // Create newTrip object
+    const newTrip = {
+      id: tripId,
+      title: tripName,
+      days: daysISO,
+      passed: false // Initially set to false (trip has not passed yet)
+    };
+
+    // Add new trip to existing trips array
+    existingTrips.push(newTrip);
+    // Store updated trips array back to localStorage
+    localStorage.setItem("trips", JSON.stringify(existingTrips));
+
+    // Reset form fields after trip is created
+    setTripName("");
+    setStartDate("");
+    setEndDate("");
+
+    alert("Trip created successfully!");
+
+    handleBackToDashboard();
+  };
 
   return (
     <div className="h-full">
@@ -58,7 +105,10 @@ export const CreateTrip = ({ handleBackToDashboard, handleNavBar }) => {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
-        <Button text={"Create Trip"} />
+        <Button
+          text={"Create Trip"}
+          onClick={handleCreateTrip}
+        />
       </div>
     </div>
   );
