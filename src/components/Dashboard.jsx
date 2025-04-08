@@ -8,11 +8,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { isAfter, parseISO } from "date-fns";
 
 export const Dashboard = () => {
-
   // State to control which component is displayed
   const [displayDefault, setDisplayDefault] = useState(true);
   const [displayNavBar, setDisplayNavBar] = useState(false);
   const [trips, setTrips] = useState([]);
+  const [displayCheck, setDisplayCheck] = useState(false);
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
@@ -26,8 +26,7 @@ export const Dashboard = () => {
       // If today's date is after end date, mark as passed
       if (isAfter(parseISO(today), parseISO(x.days[x.days.length - 1]))) {
         return { ...x, passed: true };
-      }
-      else {
+      } else {
         return { ...x, passed: false };
       }
     });
@@ -46,7 +45,6 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-row flex-nowrap h-full">
-
       {/* Left section with logo */}
       <div className="w-2/3 grid grid-cols-1 grid-rows-5 bg-white">
         <img
@@ -58,7 +56,6 @@ export const Dashboard = () => {
 
       {/* Right section with navigation management */}
       <div className="bg-gradient-to-r from-wandernest-blue to-wandernest-pink w-1/3">
-
         {/* Display NavBar if toggled */}
         {displayNavBar && (
           <NavBar handleNavBar={() => setDisplayNavBar(false)} />
@@ -84,9 +81,7 @@ export const Dashboard = () => {
               </h2>
               <MenuIcon
                 fontSize="large"
-                sx={{
-                  cursor: "pointer",
-                }}
+                sx={{ cursor: "pointer" }}
                 className="grid col-start-3 col-end-4 justify-self-end"
                 onClick={() => setDisplayNavBar(true)}
               />
@@ -103,21 +98,40 @@ export const Dashboard = () => {
                       startDate={trip.days[0]}
                       endDate={trip.days[trip.days.length - 1]}
                       passed={trip.passed}
+                      checkMark={displayCheck}
                     />
                   ))
                 ) : (
-                  <p className="bg-white rounded-lg text-center p-2 border border-2 border-transparent"
-                  >
+                  <p className="bg-white rounded-lg text-center p-2 border border-2 border-transparent">
                     No trips available. Create one!
                   </p>
                 )}
               </div>
-
-              <Button
-                text={"New Trip"}
-                onClick={() => setDisplayDefault(false)}
-              />
-
+              {!displayCheck && (
+                <div className="flex items-center gap-3">
+                  <Button
+                    text={"New Trip"}
+                    onClick={() => setDisplayDefault(false)}
+                  />
+                  <Button
+                    text={"Delete"}
+                    onClick={() => setDisplayCheck(true)}
+                  />
+                </div>
+              )}
+              {displayCheck && (
+                <div className="flex items-center gap-3">
+                  <Button
+                    text={"Delete"}
+                    onClick={() => setDisplayDefault(false)}
+                    variant="red"
+                  />
+                  <Button
+                    text={"Cancel"}
+                    onClick={() => setDisplayCheck(false)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}
