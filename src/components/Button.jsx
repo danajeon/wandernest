@@ -2,10 +2,12 @@ import React from 'react'
 
 export const Button = ({ variant = 'default', onClick, text }) => {
     // default button
-    const baseStyle = 'w-[200px] py-1 rounded-lg text-lg bg-gradient-to-r from-wandernest-blue to-wandernest-pink text-white border border-2 hover:text-transparent hover:bg-clip-text';
+    const baseStyle = 'w-[200px] py-1 rounded-lg text-lg  border border-2 hover:text-transparent hover:bg-clip-text';
     // button variants
     const variants = {
-        "inverse": 'text-transparent bg-clip-text'
+        "default" : "bg-gradient-to-r from-wandernest-blue to-wandernest-pink text-white",
+        "inverse": 'text-transparent bg-clip-text',
+        "red" : "text-white bg-red-500"
     };
 
     return (
