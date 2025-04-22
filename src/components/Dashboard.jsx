@@ -13,6 +13,7 @@ export const Dashboard = () => {
   const [displayNavBar, setDisplayNavBar] = useState(false);
   const [trips, setTrips] = useState([]);
   const [displayCheck, setDisplayCheck] = useState(false);
+  const [toBeDeleted, setToBeDeleted] = useState([]);
 
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split("T")[0];
@@ -42,6 +43,26 @@ export const Dashboard = () => {
   useEffect(() => {
     refreshTrips();
   }, []);
+
+  // If a Trip is checked, push its id to toBeDeleted
+  const handleBoxChecked = (id, isChecked) => {
+    setToBeDeleted((prev) =>
+      isChecked
+        ? [...prev, id]
+        : prev.filter((x) => x !== id)
+    );
+  };
+
+  // Red delete button
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete this trip(s)?") === true) {
+      const deleteChecked = trips.filter((x) => !toBeDeleted.includes(x.id));
+      localStorage.setItem("trips", JSON.stringify(deleteChecked));
+      setTrips(deleteChecked);
+      setDisplayCheck(false);
+    }
+  };
+
 
   return (
     <div className="flex flex-row flex-nowrap h-full">
@@ -94,11 +115,13 @@ export const Dashboard = () => {
                   trips.map((trip) => (
                     <Trip
                       key={trip.id}
+                      tripId={trip.id}
                       name={trip.title}
                       startDate={trip.days[0]}
                       endDate={trip.days[trip.days.length - 1]}
                       passed={trip.passed}
-                      checkMark={displayCheck}
+                      checkboxTrigger={displayCheck}
+                      boxChecked={handleBoxChecked}
                     />
                   ))
                 ) : (
@@ -123,7 +146,7 @@ export const Dashboard = () => {
                 <div className="flex items-center gap-3">
                   <Button
                     text={"Delete"}
-                    onClick={() => setDisplayDefault(false)}
+                    onClick={() => handleDelete()}
                     variant="red"
                   />
                   <Button

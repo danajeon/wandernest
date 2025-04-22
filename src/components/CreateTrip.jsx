@@ -24,8 +24,9 @@ export const CreateTrip = ({ handleBackToDashboard, handleNavBar }) => {
     // Retrieve existing "trips" from local storage (if any), or initialize empty array
     const existingTrips = JSON.parse(localStorage.getItem("trips")) || [];
 
-    // Unique trip ID (e.g., tr001, tr002, tr003, ...)
-    const tripId = `tr${String(existingTrips.length + 1).padStart(3, "0")}`;
+    // Unique trip ID based on trip creation time (down to millisecond)
+    const now = new Date().toISOString();
+    const tripId = `tr${now}`;
 
     // Convert start and end date strings into Date objects
     const parsedStartDate = parseISO(startDate);
