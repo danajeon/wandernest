@@ -131,7 +131,7 @@ export const Dashboard = () => {
                 )}
               </div>
               {!displayCheck && (
-                <div className="flex items-center gap-3">
+                <div className="w-full flex items-center gap-3">
                   <Button
                     text={"New Trip"}
                     onClick={() => setDisplayDefault(false)}
@@ -143,7 +143,7 @@ export const Dashboard = () => {
                 </div>
               )}
               {displayCheck && (
-                <div className="flex items-center gap-3">
+                <div className="w-full flex items-center gap-3">
                   <Button
                     text={"Delete"}
                     onClick={() => handleDelete()}

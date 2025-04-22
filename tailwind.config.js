@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        itim: ["Itim", "serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       colors: {
         "wandernest-blue": "#B0E7FF",

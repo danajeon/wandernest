@@ -24,7 +24,7 @@ export const SignIn = ({ handleCreateAccount }) => {
           <input type="password" className="border border-gray-400 text-black rounded-lg focus:outline-none focus:ring-2 px-1" />
         </div>
       </div>
-      <div className="flex flex-col items-center">
+      <div className=" flex flex-col items-center">
         <Button
           text={"Sign In"}
           onClick={handleLogin}
