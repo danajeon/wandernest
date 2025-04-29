@@ -3,6 +3,7 @@ import { CreateTrip } from "./CreateTrip";
 import { NavBar } from "./NavBar";
 import { Button } from "./Button";
 import { Trip } from "./Trip";
+import { SelectDropdown } from "./SelectDropdown";
 import logo1 from "../images/logo1.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { isAfter, parseISO } from "date-fns";
@@ -63,6 +64,22 @@ export const Dashboard = () => {
     }
   };
 
+  // Sorting (ascending)
+  const handleSortAscending = () => {
+    const sortAscending = [...trips].sort((a, b) =>
+      new Date(a.days[0]) - new Date(b.days[0])
+    );
+    setTrips(sortAscending);
+  };
+
+  // Sorting (descending)
+  const handleSortDescending = () => {
+    const sortDescending = [...trips].sort((a, b) =>
+      new Date(b.days[0]) - new Date(a.days[0])
+    );
+    setTrips(sortDescending);
+  }
+
 
   return (
     <div className="flex flex-row flex-nowrap h-full">
@@ -110,25 +127,33 @@ export const Dashboard = () => {
 
             {/* Trip list */}
             <div className="flex flex-col justify-between items-center h-[80%] rounded-md m-6 p-4 bg-[rgba(255,255,255,.7)]">
-              <div className="flex flex-col w-full gap-2 mb-4 overflow-scroll">
-                {trips.length > 0 ? (
-                  trips.map((trip) => (
-                    <Trip
-                      key={trip.id}
-                      tripId={trip.id}
-                      name={trip.title}
-                      startDate={trip.days[0]}
-                      endDate={trip.days[trip.days.length - 1]}
-                      passed={trip.passed}
-                      checkboxTrigger={displayCheck}
-                      boxChecked={handleBoxChecked}
-                    />
-                  ))
-                ) : (
-                  <p className="bg-white rounded-lg text-center p-2 border border-2 border-transparent">
-                    No trips available. Create one!
-                  </p>
-                )}
+              <div className="h-5/6 w-full pb-3">
+                <div className="flex flex-row w-full justify-end mb-2">
+                  <SelectDropdown
+                    sortAscending={() => handleSortAscending()}
+                    sortDescending={() => handleSortDescending()}
+                  />
+                </div>
+                <div className="flex flex-col h-full w-full overflow-scroll gap-2">
+                  {trips.length > 0 ? (
+                    trips.map((trip) => (
+                      <Trip
+                        key={trip.id}
+                        tripId={trip.id}
+                        name={trip.title}
+                        startDate={trip.days[0]}
+                        endDate={trip.days[trip.days.length - 1]}
+                        passed={trip.passed}
+                        checkboxTrigger={displayCheck}
+                        boxChecked={handleBoxChecked}
+                      />
+                    ))
+                  ) : (
+                    <p className="bg-white rounded-lg text-center p-2 border border-2 border-transparent">
+                      No trips available. Create one!
+                    </p>
+                  )}
+                </div>
               </div>
               {!displayCheck && (
                 <div className="w-full flex items-center gap-3">
